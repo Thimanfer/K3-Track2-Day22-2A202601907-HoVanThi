@@ -1,0 +1,224 @@
+=== A/B Routing Log (50 Requests) ===
+V1 Prompt: hovanthi-rag-prompt-v1
+V2 Prompt: hovanthi-rag-prompt-v2
+
+[01] [req-0001] [prompt-v2] Q: What are the three main types of machine learning?...
+     Full Answer: 1. Ba loại hình chính của học máy (machine learning) bao gồm học có giám sát (supervised learning), học không giám sát (unsupervised learning) và học tăng cường (reinforcement learning).
+
+2. Trong học có giám sát, các mô hình được huấn luyện dựa trên các cặp dữ liệu đầu vào-đầu ra đã được gán nhãn để học hàm ánh xạ; học không giám sát tập trung vào việc khám phá các cấu trúc hoặc quy luật ẩn trong dữ liệu chưa được gán nhãn; trong khi học tăng cường liên quan đến việc một tác nhân (agent) học cách đưa ra quyết định.
+
+3. Thông tin này được trích xuất trực tiếp từ tài liệu cung cấp, đảm bảo độ tin cậy cao về các khái niệm nền tảng của học máy.
+[02] [req-0002] [prompt-v1] Q: What is overfitting in machine learning?...
+     Full Answer: Overfitting occurs when a machine learning model learns training data too well, including noise, which causes it to memorize specifics instead of general patterns. This results in excellent performance on training data but poor generalization when applied to new, unseen examples.
+[03] [req-0003] [prompt-v1] Q: Explain the bias-variance tradeoff....
+     Full Answer: The bias-variance tradeoff is the balance between high bias (underfitting) and high variance (overfitting) to minimize total prediction error. A high-bias model makes overly strong assumptions, while a high-variance model is too sensitive to training data fluctuations. The goal is to find an optimal model where neither bias nor variance dominates.
+[04] [req-0004] [prompt-v2] Q: How does regularization prevent overfitting?...
+     Full Answer: 1. **Tổng quan:** Regularization ngăn chặn overfitting bằng cách thêm các thành phần phạt (penalty terms) vào hàm mất mát (loss function), từ đó hạn chế độ phức tạp của mô hình và ngăn chặn việc học quá mức các chi tiết nhiễu trong dữ liệu huấn luyện.
+
+2. **Các điểm chi tiết:** Kỹ thuật này sử dụng siêu tham số lambda để kiểm soát cường độ phạt, trong đó L1 (Lasso) thúc đẩy tính thưa thớt (sparsity) bằng cách cộng giá trị tuyệt đối của trọng số, còn L2 (Ridge) giữ cho các trọng số nhỏ nhưng không bằng không bằng cách cộng bình phương độ lớn của chúng. Ngoài ra, Elastic Net kết hợp cả hai phương pháp này để tối ưu hóa việc cân bằng giữa bias và variance, giúp mô hình tổng quát hóa tốt hơn trên dữ liệu mới thay vì chỉ ghi nhớ dữ liệu huấn luyện.
+
+3. **Lưu ý kỹ thuật:** Mức độ tin cậy của phương pháp này rất cao vì nó trực tiếp giải quyết vấn đề high variance (quá nhạy cảm với biến động dữ liệu) – một trong những nguyên nhân chính gây ra overfitting trong đánh đổi bias-variance.
+[05] [req-0005] [prompt-v2] Q: What is cross-validation?...
+     Full Answer: 1. Cross-validation là một kỹ thuật đánh giá mô hình giúp ước tính hiệu suất một cách đáng tin cậy hơn bằng cách chia dữ liệu thành nhiều phần (folds).
+
+2. Trong phương pháp k-fold, tập dữ liệu được chia thành k phần bằng nhau, trong đó mô hình được huấn luyện trên k-1 phần và kiểm tra trên phần còn lại, quy trình này được lặp lại k lần. Ngoài ra, stratified cross-validation giúp duy trì phân phối lớp trong mỗi fold, còn leave-one-out cross-validation sử dụng một mẫu duy nhất làm tập kiểm tra.
+
+3. Độ tin cậy của kỹ thuật này nằm ở khả năng tận dụng tối đa dữ liệu để đánh giá, với mức độ tin cậy cao hơn so với các phương pháp đánh giá đơn lẻ.
+[06] [req-0006] [prompt-v2] Q: What is backpropagation?...
+     Full Answer: 1. **Tổng quan:** Backpropagation là thuật toán cốt lõi dùng để huấn luyện mạng thần kinh bằng cách tính toán gradient của hàm mất mát (loss function) đối với từng trọng số thông qua quy tắc chuỗi (chain rule) trong giải tích.
+
+2. **Chi tiết:** Thuật toán hoạt động bằng cách truyền tín hiệu lỗi ngược từ lớp đầu ra về các lớp trước đó, tính toán các đạo hàm riêng theo từng lớp để xác định mức độ đóng góp của mỗi trọng số vào tổng sai số. Sau đó, các trọng số này được cập nhật thông qua các phương pháp tối ưu hóa như gradient descent hoặc các biến thể của nó (Adam, RMSprop, SGD with momentum) nhằm giảm thiểu hàm mất mát.
+
+3. **Lưu ý kỹ thuật:** Độ tin cậy của quy trình này dựa trên việc áp dụng chính xác quy tắc chuỗi để lan truyền lỗi, đảm bảo các gradient thu được phản ánh đúng hướng cần điều chỉnh để tối ưu hóa hiệu suất mạng.
+[07] [req-0007] [prompt-v2] Q: What are Convolutional Neural Networks primarily used f...
+     Full Answer: 1. **Tổng quan:** Convolutional Neural Networks (CNNs) là một lớp mạng thần kinh chuyên biệt được thiết kế để xử lý dữ liệu dạng lưới (grid-like data), đặc biệt là hình ảnh.
+
+2. **Các điểm chi tiết:** CNNs sử dụng các lớp tích chập với bộ lọc có thể học được để phát hiện các đặc trưng cục bộ như cạnh, kết cấu và hình dạng tại các vị trí không gian khác nhau, đồng thời tận dụng tính bất biến tịnh tiến (translational invariance). Các ứng dụng chính của CNNs bao gồm phân loại hình ảnh (image classification), phát hiện đối tượng (object detection), phân đoạn ngữ nghĩa (semantic segmentation) và phân tích video.
+
+3. **Lưu ý kỹ thuật:** Độ tin cậy của thông tin này rất cao vì nó được trích xuất trực tiếp từ tài liệu kỹ thuật cung cấp, xác nhận khả năng của CNN trong việc tái sử dụng các bộ phát hiện đặc trưng trên các vùng khác nhau của dữ liệu đầu vào.
+[08] [req-0008] [prompt-v1] Q: How do LSTM networks address the vanishing gradient pro...
+     Full Answer: LSTM networks address the vanishing gradient problem by using gating mechanisms that regulate the flow of information. This architecture allows gradients to flow unchanged over many time steps, preventing them from vanishing as they do in standard RNNs.
+[09] [req-0009] [prompt-v2] Q: What activation functions are commonly used in neural n...
+     Full Answer: 1. Các hàm kích hoạt phổ biến trong mạng thần kinh bao gồm ReLU, Sigmoid và Tanh, mỗi loại đóng vai trò quan trọng trong việc đưa tính phi tuyến vào mô hình để học các mẫu phức tạp.
+
+2. ReLU (Rectified Linear Unit) là hàm được sử dụng rộng rãi nhất trong các lớp ẩn nhờ khả năng tránh vấn đề triệt tiêu gradient và hiệu quả về mặt tính toán; trong khi đó, Sigmoid thường được dùng cho các lớp đầu ra trong phân loại nhị phân, còn Tanh được ưu tiên nhờ đặc tính zero-centered giúp tối ưu hóa tốt hơn.
+
+3. Mức độ tin cậy của thông tin này rất cao vì nó dựa trực tiếp trên các đặc tính kỹ thuật tiêu chuẩn của các hàm kích hoạt được mô tả trong tài liệu cung cấp.
+[10] [req-0010] [prompt-v1] Q: What is the role of pooling layers in CNNs?...
+     Full Answer: Pooling layers perform spatial downsampling to reduce the dimensions of data, which decreases computational complexity and the number of parameters. They help control overfitting, retain important features, and provide a form of translational invariance.
+[11] [req-0011] [prompt-v1] Q: What is the transformer architecture?...
+     Full Answer: The transformer architecture is a deep learning model introduced in 2017 that uses self-attention mechanisms to process entire sequences in parallel. It consists of encoder and decoder stacks built from multi-head self-attention and feed-forward networks, with positional encodings added to convey sequence order.
+[12] [req-0012] [prompt-v2] Q: What are word embeddings?...
+     Full Answer: 1. **Tổng quan:** Word embeddings là các biểu diễn vector dày đặc (dense vector) của từ ngữ, được thiết kế để nắm bắt ý nghĩa ngữ nghĩa thông qua vị trí hình học trong không gian vector.
+
+2. **Chi tiết:** Các từ có ý nghĩa tương đồng sẽ nằm gần nhau về mặt hình học, cho phép thực hiện các phép toán vector để thể hiện suy luận tương tự (ví dụ: "king - man + woman ≈ queen"). Các phương pháp phổ biến để huấn luyện các mô hình này trên các tập dữ liệu văn bản lớn bao gồm Word2Vec, GloVe và FastText.
+
+3. **Lưu ý kỹ thuật:** Các embedding này đóng vai trò nền tảng cho các tác vụ như tìm kiếm ngữ nghĩa, phân loại và phát hiện trùng lặp mà không cần dựa vào việc khớp từ khóa chính xác.
+[13] [req-0013] [prompt-v1] Q: What is transfer learning in NLP?...
+     Full Answer: Transfer learning in NLP is the process of pre-training large models on massive corpora to develop general language understanding. These models are then fine-tuned on specific downstream tasks using a small labeled dataset.
+[14] [req-0014] [prompt-v2] Q: How does BERT handle language understanding?...
+     Full Answer: 1. **Tổng quan:** BERT xử lý hiểu ngôn ngữ thông qua cơ chế huấn luyện transformer hai chiều (bidirectional), cho phép mô hình nắm bắt thông tin ngữ cảnh phong phú từ cả hai phía của văn bản thay vì chỉ đọc từ trái sang phải.
+
+2. **Các điểm chi tiết:** Mô hình sử dụng hai kỹ thuật huấn luyện chính: "masked language modeling" để dự đoán các token bị ẩn ngẫu nhiên dựa trên ngữ cảnh xung quanh, và "next sentence prediction" để hiểu mối quan hệ giữa các cặp câu. Cách tiếp cận này giúp BERT vượt trội trong các tác vụ như đọc hiểu và xác định độ tương đồng ngữ nghĩa.
+
+3. **Lưu ý kỹ thuật:** Khác với kiến trúc GPT (đọc văn bản từ trái sang phải), khả năng tận dụng ngữ cảnh hai chiều của BERT là yếu tố cốt lõi tạo nên sức mạnh vượt trội của nó trong việc thiết lập các tiêu chuẩn mới cho các tác vụ NLP.
+[15] [req-0015] [prompt-v1] Q: What is self-attention in transformers?...
+     Full Answer: Self-attention is the core mechanism in transformers that allows models to weigh the importance of different words relative to each other in a sequence. It computes a weighted sum of all token representations by calculating attention scores based on the dot product of query and key vectors.
+[16] [req-0016] [prompt-v2] Q: What is GPT and how is it trained?...
+     Full Answer: 1. GPT (Generative Pre-trained Transformer) là một dòng mô hình ngôn ngữ tự hồi quy do OpenAI phát triển, được thiết kế để dự đoán token tiếp theo dựa trên các token trước đó.
+
+2. Mô hình được huấn luyện thông qua quá trình tiền huấn luyện (pre-training) trên các tập dữ liệu văn bản khổng lồ, sử dụng kiến trúc transformer đơn hướng (từ trái sang phải) để học ngữ pháp, sự kiện, khả năng suy luận và kiến thức thế giới. Quá trình này áp dụng phương pháp học chuyển đổi (transfer learning), trong đó mô hình phát triển khả năng hiểu ngôn ngữ tổng quát trước khi được tinh chỉnh (fine-tuning) cho các tác vụ cụ thể.
+
+3. Về mặt kỹ thuật, GPT-4 hỗ trợ ngữ cảnh lên tới 128K token, với độ tin cậy cao dựa trên cơ chế dự đoán token dựa trên hàng tỷ chuỗi văn bản trong giai đoạn tiền huấn luyện.
+[17] [req-0017] [prompt-v2] Q: What is instruction tuning?...
+     Full Answer: 1. **Tổng quan:** Instruction tuning là một kỹ thuật tinh chỉnh có giám sát (supervised fine-tuning) nhằm mục đích cải thiện khả năng tuân thủ các chỉ dẫn của mô hình ngôn ngữ lớn (LLM) để phù hợp hơn với ý định của con người.
+
+2. **Chi tiết:** Quá trình này huấn luyện mô hình trên các tập dữ liệu đa dạng bao gồm các cặp (chỉ dẫn, phản hồi) cho nhiều tác vụ như tóm tắt, dịch thuật, trả lời câu hỏi và lập trình. Thay vì chỉ dự đoán token tiếp theo, mô hình học cách thực hiện các chỉ dẫn ngôn ngữ tự nhiên; các ví dụ điển hình cho phương pháp này bao gồm InstructGPT, Alpaca và Flan-T5.
+
+3. **Lưu ý kỹ thuật:** Đây là bước nền tảng thường được sử dụng trước khi áp dụng các kỹ thuật căn chỉnh nâng cao hơn như RLHF (Reinforcement Learning from Human Feedback) để đảm bảo mô hình đạt được sự hữu ích và nhất quán cao nhất.
+[18] [req-0018] [prompt-v1] Q: What is RLHF?...
+     Full Answer: RLHF (Reinforcement Learning from Human Feedback) là một kỹ thuật giúp căn chỉnh các mô hình ngôn ngữ lớn với các giá trị của con người để đảm bảo chúng hữu ích, vô hại và trung thực. Quy trình này bao gồm việc tinh chỉnh mô hình bằng học có giám sát, huấn luyện mô hình phần thưởng dựa trên phản hồi của con người và tối ưu hóa mô hình bằng học tăng cường.
+[19] [req-0019] [prompt-v2] Q: What is chain-of-thought prompting?...
+     Full Answer: 1. **Tổng quan:** Chain-of-thought (CoT) prompting là một kỹ thuật giúp cải thiện khả năng suy luận của các mô hình ngôn ngữ lớn (LLM) bằng cách yêu cầu chúng trình bày các bước tư duy trung gian thay vì đưa ra kết quả cuối cùng ngay lập tức.
+
+2. **Chi tiết:** Kỹ thuật này hoạt động bằng cách cung cấp các ví dụ minh họa quá trình chia nhỏ vấn đề thành các bước phụ, giúp nâng cao hiệu suất đáng kể trong các bài toán đố về toán học, suy luận logic và suy luận thông thường. Ngoài ra, phương pháp "Zero-shot chain-of-thought" cho phép kích hoạt quy trình này chỉ bằng cách thêm cụm từ "Let's think step by step" vào câu lệnh.
+
+3. **Lưu ý:** Đây là một phương pháp đã được kiểm chứng giúp tối ưu hóa khả năng xử lý các tác vụ phức tạp của LLM thông qua việc cấu trúc hóa quá trình tư duy logic.
+[20] [req-0020] [prompt-v1] Q: What is the context length of GPT-4?...
+     Full Answer: GPT-4 supports a context length of up to 128K tokens. This allows the model to process and generate very long documents, codebases, and extended conversations.
+[21] [req-0021] [prompt-v1] Q: What is Retrieval-Augmented Generation?...
+     Full Answer: Retrieval-Augmented Generation (RAG) is an approach that enhances language models by integrating external knowledge from document stores during inference. It combines a retriever to find relevant information and a generator (LLM) to produce grounded, up-to-date answers, which helps reduce hallucinations.
+[22] [req-0022] [prompt-v2] Q: What are the main components of a RAG pipeline?...
+     Full Answer: 1. A RAG pipeline is composed of two primary, integrated components: a retriever and a generator (LLM).
+
+2. The retriever functions by searching a document store—such as a vector database, search engine, or traditional database—to identify and return the most relevant passages based on a user query. Subsequently, the generator receives both the original query and these retrieved passages to produce a grounded response.
+
+3. This architecture is highly reliable for domain-specific applications, as it ensures accuracy and factual grounding by allowing the system to incorporate current information and cite specific sources.
+[23] [req-0023] [prompt-v1] Q: What is dense retrieval?...
+     Full Answer: Dense retrieval is a neural approach that uses embeddings to encode queries and documents into dense vectors, determining relevance through cosine similarity. It captures semantic similarity, allowing it to match documents even when they share no common keywords with the query.
+[24] [req-0024] [prompt-v2] Q: Why is chunking strategy important in RAG?...
+     Full Answer: 1. **Tổng quan:** Chiến lược chia nhỏ dữ liệu (chunking) đóng vai trò then chốt trong hệ thống RAG vì nó ảnh hưởng trực tiếp đến độ chính xác của quá trình truy xuất thông tin và khả năng tương thích với giới hạn cửa sổ ngữ cảnh (context window) của mô hình ngôn ngữ.
+
+2. **Các điểm chi tiết:** Việc chọn kích thước chunk không phù hợp sẽ gây ra hệ quả tiêu cực: nếu chunk quá lớn, nội dung có thể chứa nhiều thông tin nhiễu gây xao nhãng cho LLM và vượt quá giới hạn ngữ cảnh; ngược lại, nếu chunk quá nhỏ, chúng có thể thiếu hụt ngữ cảnh cần thiết để trả lời câu hỏi một cách đầy đủ. Các phương pháp phổ biến bao gồm chia theo kích thước cố định (fixed-size), ngữ nghĩa (semantic) hoặc phân cấp (hierarchical) để tối ưu hóa hiệu quả này.
+
+3. **Lưu ý kỹ thuật:** Độ tin cậy của hệ thống RAG phụ thuộc vào sự cân bằng giữa tính chính xác và khả năng cung cấp thông tin thực tế, do đó việc lựa chọn chiến lược chunking phù hợp là yếu tố quyết định để đảm bảo mô hình có thể trích dẫn nguồn tin chính xác trong các ứng dụng chuyên biệt.
+[25] [req-0025] [prompt-v1] Q: What advanced RAG techniques exist beyond basic retriev...
+     Full Answer: Advanced RAG techniques include re-ranking, query expansion, HyDE (Hypothetical Document Embeddings), and iterative retrieval for multi-hop questions. These methods go beyond simple retrieval to improve the accuracy and coverage of the generated responses.
+[26] [req-0026] [prompt-v2] Q: What are vector databases used for?...
+     Full Answer: 1. **Tổng quan:** Vector databases là các hệ thống chuyên dụng được thiết kế để lưu trữ và truy vấn các vector nhúng (embedding) có số chiều cao nhằm thực hiện tìm kiếm tương đồng (similarity search) với tốc độ nhanh.
+
+2. **Các điểm chi tiết:** Thay vì tìm kiếm chính xác như cơ sở dữ liệu quan hệ truyền thống, các hệ thống này sử dụng các cấu trúc lập chỉ mục chuyên biệt để hỗ trợ tìm kiếm láng giềng gần đúng (ANN) trên quy mô hàng triệu hoặc hàng tỷ vector. Ngoài ra, chúng còn lưu trữ các vector nhúng kèm theo dữ liệu meta để phục vụ cho việc truy vấn ngữ nghĩa hiệu quả.
+
+3. **Lưu ý kỹ thuật:** Các giải pháp phổ biến hiện nay bao gồm Pinecone, Weaviate, Qdrant, Chroma và Milvus, được tối ưu hóa đặc biệt để xử lý dữ liệu đa chiều thay vì các truy vấn tra cứu chính xác thông thường.
+[27] [req-0027] [prompt-v2] Q: What is FAISS?...
+     Full Answer: 1. **Tổng quan:** FAISS (Facebook AI Similarity Search) là một thư viện do Meta AI Research phát triển, được thiết kế để thực hiện tìm kiếm độ tương đồng (similarity search) hiệu quả cho các vector nhúng (embeddings).
+
+2. **Các điểm chi tiết:** Thư viện này hỗ trợ cả thuật toán tìm kiếm láng giềng gần nhất chính xác (exact) và xấp xỉ (approximate), với các loại chỉ mục (index) đa dạng như `IndexFlatL2` cho tìm kiếm vét cạn, `IndexIVFFlat` cho chỉ mục tệp đảo ngược dựa trên phân cụm, và `IndexHNSWFlat` cho tìm kiếm đồ thị. FAISS được tối ưu hóa cao để chạy trên cả CPU và GPU, cho phép thực hiện tìm kiếm ngữ nghĩa nhanh chóng trên quy mô hàng triệu hoặc hàng tỷ vector.
+
+3. **Lưu ý kỹ thuật:** FAISS đóng vai trò là công cụ cốt lõi trong các cơ sở dữ liệu vector, tận dụng các cấu trúc chỉ mục chuyên biệt để tối ưu hóa tốc độ truy vấn trong các hệ thống tìm kiếm quy mô lớn.
+[28] [req-0028] [prompt-v2] Q: How do text embeddings capture semantic meaning?...
+     Full Answer: 1. **Tổng quan:** Text embeddings nắm bắt ý nghĩa ngữ nghĩa bằng cách chuyển đổi văn bản thành các vectơ số, trong đó các văn bản có nội dung tương đồng sẽ được đặt ở vị trí gần nhau trong không gian vectơ.
+
+2. **Các điểm chi tiết:** Các mô hình như OpenAI text-embedding-3-small, Cohere embed-v3, E5 hay BGE được huấn luyện để ánh xạ các văn bản có ý nghĩa tương tự vào các tọa độ hình học gần nhau. Đối với các mô hình từ ngữ (word embeddings) như Word2Vec hay GloVe, các mối quan hệ ngữ nghĩa còn được thể hiện qua các phép toán vectơ, cho phép thực hiện các suy luận tương tự (ví dụ: "king - man + woman ≈ queen").
+
+3. **Lưu ý kỹ thuật:** Các vectơ này thường có số chiều từ 384 đến 3072, cho phép hệ thống thực hiện các tác vụ như tìm kiếm ngữ nghĩa, phân cụm và phân loại mà không cần dựa vào việc khớp từ khóa chính xác.
+[29] [req-0029] [prompt-v2] Q: What is HNSW?...
+     Full Answer: 1. **Tổng quan:** HNSW (Hierarchical Navigable Small World) là một thuật toán dựa trên đồ thị được thiết kế để thực hiện tìm kiếm láng giềng gần nhất xấp xỉ (ANN) với độ phức tạp logarit.
+
+2. **Chi tiết kỹ thuật:** Thuật toán xây dựng cấu trúc đồ thị phân tầng, trong đó các lớp cao hơn chứa ít nút với các kết nối tầm xa, còn các lớp thấp hơn chứa toàn bộ dữ liệu với các kết nối tầm ngắn. Quá trình tìm kiếm bắt đầu từ lớp trên cùng và điều hướng tham lam (greedy) về phía truy vấn, sau đó hạ dần xuống các lớp chi tiết hơn để đạt độ chính xác cao.
+
+3. **Lưu ý:** HNSW cung cấp sự cân bằng tối ưu giữa tốc độ và độ chính xác, nhờ đó nó trở thành loại chỉ mục (index) mặc định trong nhiều cơ sở dữ liệu vector hiện nay.
+[30] [req-0030] [prompt-v2] Q: What is hybrid search in vector databases?...
+     Full Answer: 1. **Tổng quan:** Hybrid search là phương pháp kết hợp giữa tìm kiếm dựa trên vector (dense search) và tìm kiếm dựa trên từ khóa (sparse search/BM25) để tận dụng ưu điểm của cả hai kỹ thuật trong việc truy xuất thông tin.
+
+2. **Chi tiết:** Trong khi tìm kiếm vector tập trung vào sự tương đồng về ngữ nghĩa, tìm kiếm từ khóa (BM25) đảm bảo độ chính xác cho các khớp nối từ ngữ cụ thể. Hệ thống sử dụng thuật toán Reciprocal Rank Fusion (RRF) để hợp nhất các danh sách kết quả từ hai phương pháp này bằng cách tính tổng các thứ hạng nghịch đảo, tạo ra một bảng xếp hạng cuối cùng mạnh mẽ và toàn diện hơn.
+
+3. **Lưu ý kỹ thuật:** Phương pháp này khắc phục được hạn chế của tìm kiếm vector (thường bỏ lỡ các khớp nối từ khóa chính xác) và tìm kiếm từ khóa (thường bỏ lỡ các biến thể ngữ nghĩa), giúp tối ưu hóa hiệu suất truy vấn trên các tập dữ liệu lớn.
+[31] [req-0031] [prompt-v2] Q: What is LangChain?...
+     Full Answer: LangChain là một framework mã nguồn mở được thiết kế để đơn giản hóa quá trình xây dựng các ứng dụng sử dụng mô hình ngôn ngữ lớn (LLM). Hệ thống này cung cấp các thành phần mô-đun như quản lý prompt, phân tích đầu ra, bộ nhớ, truy xuất dữ liệu và khả năng sử dụng công cụ thông qua các trừu tượng hóa về chuỗi (chains) và tác nhân (agents). Ngoài ra, LangChain hỗ trợ tích hợp đa dạng các nhà cung cấp LLM, kho lưu trữ vector, trình tải tài liệu và mô hình nhúng thông qua một giao diện nhất quán.
+[32] [req-0032] [prompt-v1] Q: What is LangChain Expression Language (LCEL)?...
+     Full Answer: LangChain Expression Language (LCEL) là một cú pháp khai báo dùng để kết hợp các thành phần của LangChain thông qua toán tử pipe (|). Nó hỗ trợ các tính năng như streaming, bất đồng bộ (async) và xử lý theo lô (batching) một cách dễ đọc và mang phong cách hàm.
+[33] [req-0033] [prompt-v2] Q: What is LangGraph?...
+     Full Answer: 1. **Tổng quan:** LangGraph là một phần mở rộng của LangChain được thiết kế để xây dựng các ứng dụng đa tác nhân (multi-actor) có trạng thái (stateful) thông qua cấu trúc đồ thị có hướng.
+
+2. **Các điểm chi tiết:** Khác với các chuỗi tuyến tính truyền thống, LangGraph biểu diễn quy trình làm việc dưới dạng đồ thị, trong đó các nút là các bước tính toán và các cạnh điều khiển luồng dữ liệu. Điểm khác biệt cốt lõi là khả năng hỗ trợ các chu kỳ (cycles), cho phép đồ thị quay lại các nút trước đó dựa trên các điều kiện cụ thể để thực hiện các quy trình tác nhân lặp đi lặp lại.
+
+3. **Lưu ý kỹ thuật:** Hệ thống này tích hợp sẵn khả năng quan sát (observability) thông qua LangSmith, nơi các lệnh gọi được tự động theo dõi và gửi đến máy chủ để giám sát.
+[34] [req-0034] [prompt-v1] Q: What memory types does LangChain support?...
+     Full Answer: LangChain supports several memory types, including ConversationBufferMemory, ConversationSummaryMemory, ConversationWindowMemory, and vector store memory. Each type serves a different purpose, such as storing full history, maintaining summaries, keeping a limited number of exchanges, or retrieving relevant past interactions.
+[35] [req-0035] [prompt-v2] Q: What are LangChain retrievers?...
+     Full Answer: 1. LangChain retrievers là các thành phần chuyên dụng được thiết kế để truy xuất các tài liệu liên quan từ nguồn dữ liệu dựa trên truy vấn của người dùng.
+2. Các retriever này cung cấp một giao diện chuẩn hóa thông qua phương thức `get_relevant_documents(query)`, hỗ trợ đa dạng các nguồn dữ liệu như vector stores (FAISS, Chroma, Pinecone, Elasticsearch) và tìm kiếm từ khóa BM25. Ngoài ra, hệ thống còn hỗ trợ các kỹ thuật nâng cao như "multi-query retrievers" để tạo ra nhiều phiên bản truy vấn khác nhau nhằm cải thiện kết quả tìm kiếm.
+3. Độ tin cậy của thông tin này rất cao vì được trích xuất trực tiếp từ tài liệu kỹ thuật về hệ sinh thái LangChain, nhấn mạnh tính nhất quán trong việc kết nối dữ liệu thông qua các thành phần mô-đun.
+[36] [req-0036] [prompt-v2] Q: What is LangSmith?...
+     Full Answer: 1. **Tổng quan:** LangSmith là một nền tảng quan sát (observability) được thiết kế để giám sát toàn diện các ứng dụng LLM trong môi trường sản xuất thông qua việc tự động theo dõi (trace) các lệnh gọi.
+
+2. **Các điểm chi tiết:** Hệ thống cung cấp các chỉ số quan trọng như độ trễ (p50, p95, p99), tỷ lệ lỗi, chi phí token và phân tích chi tiết theo từng bước của chuỗi hoặc lệnh gọi LLM. Ngoài ra, nền tảng còn hỗ trợ đánh giá từ con người thông qua cơ chế phản hồi (thumbs-up/down) hoặc điểm số tùy chỉnh để xây dựng các bộ dữ liệu đánh giá.
+
+3. **Lưu ý kỹ thuật:** LangSmith tổng hợp dữ liệu từ hàng nghìn dấu vết (traces) để hiển thị xu hướng trên các bảng điều khiển, đảm bảo khả năng kiểm soát hiệu suất và chi phí vận hành cho các ứng dụng AI.
+[37] [req-0037] [prompt-v1] Q: What information do LangSmith traces capture?...
+     Full Answer: LangSmith traces capture inputs, outputs, latency, token usage, and errors for every component in a chain. For LLM calls specifically, they also record the number of prompt tokens, completion tokens, and the estimated cost.
+[38] [req-0038] [prompt-v2] Q: What is the LangSmith Prompt Hub?...
+     Full Answer: 1. **Tổng quan:** LangSmith Prompt Hub là một kho lưu trữ tập trung được thiết kế để quản lý, tạo phiên bản và chia sẻ các mẫu prompt (prompt templates) trong quá trình phát triển ứng dụng AI.
+
+2. **Các điểm chi tiết:** Hệ thống này cho phép các nhóm đẩy các mẫu prompt lên thông qua LangSmith client để truy cập bằng định danh duy nhất, đồng thời tự động tạo các bản snapshot có đánh số phiên bản. Cơ chế này hỗ trợ đắc lực cho việc cộng tác, kiểm toán, thực hiện A/B testing và khả năng khôi phục (rollback) về các phiên bản trước đó nếu hiệu suất của prompt mới bị suy giảm.
+
+3. **Lưu ý kỹ thuật:** Độ tin cậy của hệ thống nằm ở khả năng quản lý vòng đời prompt chặt chẽ, giúp các đội ngũ kỹ thuật duy trì tính nhất quán và tối ưu hóa chiến lược prompt thông qua việc theo dõi lịch sử thay đổi.
+[39] [req-0039] [prompt-v2] Q: How does LangSmith help monitor production LLM applicat...
+     Full Answer: 1. **Tổng quan:** LangSmith hỗ trợ giám sát các ứng dụng LLM trong môi trường production bằng cách cung cấp hệ thống theo dõi (tracing) tự động, thu thập dữ liệu đo lường chi tiết và các công cụ đánh giá hiệu suất toàn diện.
+
+2. **Các điểm chi tiết:** Nền tảng này tổng hợp các chỉ số quan trọng như tỷ lệ lỗi, chi phí token và các phân vị độ trễ (p50, p95, p99) thông qua các bảng điều khiển trực quan. Mỗi trace ghi lại dữ liệu đầu vào/đầu ra, mức tiêu thụ token và thời gian thực thi cho từng thành phần, đồng thời cho phép con người gắn nhãn phản hồi (thumbs-up/down hoặc điểm số tùy chỉnh) để phục vụ việc đánh giá chất lượng.
+
+3. **Lưu ý kỹ thuật:** Việc triển khai rất đơn giản, chỉ cần thiết lập biến môi trường `LANGCHAIN_TRACING_V2` thành `true` và cung cấp API key để tự động thu thập telemetry cho mọi thành phần trong ứng dụng LangChain với thay đổi mã nguồn tối thiểu.
+[40] [req-0040] [prompt-v2] Q: What are LangSmith datasets used for?...
+     Full Answer: 1. **Tổng quan:** LangSmith datasets được sử dụng để thực hiện đánh giá hệ thống (systematic evaluation) thông qua việc so sánh các phiên bản mô hình hoặc các thay đổi trong prompt dựa trên các cặp đầu vào và đầu ra kỳ vọng.
+
+2. **Chi tiết:** Bằng cách quản lý các tập dữ liệu gồm các truy vấn đại diện và câu trả lời tham chiếu, các nhóm có thể chạy các thử nghiệm đánh giá hàng loạt (batch evaluation experiments) mỗi khi cập nhật mô hình hoặc prompt. Kết quả của các đánh giá này được ghi lại dưới dạng các dấu vết (traces), cho phép so sánh trực tiếp các chỉ số hiệu suất giữa các phiên bản.
+
+3. **Lưu ý:** Mức độ tin cậy của các đánh giá này phụ thuộc vào tính đại diện của dữ liệu đầu vào và độ chính xác của các câu trả lời tham chiếu được cung cấp trong tập dữ liệu.
+[41] [req-0041] [prompt-v1] Q: What is RAGAS?...
+     Full Answer: RAGAS is an open-source framework specifically designed for evaluating RAG pipelines using LLM-based, reference-free metrics. It assesses quality dimensions such as factual grounding, relevance, and whether answers are supported by retrieved context.
+[42] [req-0042] [prompt-v2] Q: How does RAGAS compute faithfulness?...
+     Full Answer: 1. **Tổng quan:** RAGAS tính toán độ trung thực (faithfulness) bằng cách phân tích xem các khẳng định trong câu trả lời của LLM có được suy luận trực tiếp từ ngữ cảnh (context) đã truy xuất hay không.
+
+2. **Các điểm chi tiết:** Quy trình này bao gồm việc sử dụng một LLM để phân tách câu trả lời thành các tuyên bố nguyên tử (atomic statements), sau đó đối chiếu từng tuyên bố đó với ngữ cảnh đã truy xuất để xác minh tính xác thực. Điểm số cao phản ánh rằng câu trả lời được xây dựng dựa trên dữ liệu thực tế và không chứa các thông tin bịa đặt (hallucinations).
+
+3. **Lưu ý kỹ thuật:** Đây là chỉ số quan trọng nhất trong khung đánh giá RAGAS, đóng vai trò là tiêu chuẩn để đo lường mức độ "có căn cứ" (groundedness) của câu trả lời so với tài liệu nguồn.
+[43] [req-0043] [prompt-v2] Q: What is answer relevancy in RAGAS?...
+     Full Answer: 1. **Tổng quan:** Trong RAGAS, "answer relevancy" là thước đo đánh giá mức độ tập trung và khả năng phản hồi trực tiếp của câu trả lời đối với câu hỏi ban đầu.
+
+2. **Các điểm chi tiết:** Chỉ số này hoạt động bằng cách sử dụng LLM để tạo ra các câu hỏi tổng hợp (synthetic questions) mà câu trả lời đó có thể giải quyết một cách tự nhiên. Sau đó, hệ thống sẽ tính toán độ tương đồng cosine (cosine similarity) giữa các câu hỏi tổng hợp này và câu hỏi gốc để xác định điểm số; điểm càng cao chứng tỏ câu trả lời càng bám sát trọng tâm.
+
+3. **Lưu ý kỹ thuật:** Đây là một phần của khung đánh giá RAGAS, cung cấp tiêu chuẩn đo lường thống nhất giúp người dùng dễ dàng so sánh hiệu quả giữa các cấu hình RAG khác nhau.
+[44] [req-0044] [prompt-v1] Q: What is context recall in RAGAS?...
+     Full Answer: In RAGAS, context recall measures how thoroughly the retrieved passages cover the information required to answer a question. It evaluates this by comparing each sentence of a reference answer against the retrieved context to ensure the necessary information is present.
+[45] [req-0045] [prompt-v2] Q: What inputs does RAGAS evaluation require?...
+     Full Answer: 1. **Tổng quan:** Khung đánh giá RAGAS yêu cầu bốn thành phần đầu vào chính để tính toán các chỉ số, bao gồm: câu hỏi của người dùng (`user_input`), câu trả lời do LLM tạo ra (`response`), danh sách các ngữ cảnh được truy xuất (`retrieved_contexts`) và tùy chọn là câu trả lời tham chiếu (`reference`).
+
+2. **Chi tiết kỹ thuật:** Trường `retrieved_contexts` bắt buộc phải là một danh sách các chuỗi đoạn văn riêng biệt thay vì một chuỗi văn bản nối liền, nhằm cho phép RAGAS đánh giá độc lập từng đoạn văn. Việc cung cấp đầy đủ các dữ liệu này giúp thiết lập một tiêu chuẩn đánh giá thống nhất, hỗ trợ việc so sánh hiệu quả giữa các cấu hình RAG khác nhau.
+
+3. **Lưu ý:** Độ tin cậy của kết quả đánh giá phụ thuộc trực tiếp vào việc định dạng đúng cấu trúc dữ liệu đầu vào, đặc biệt là việc tách biệt các đoạn văn trong `retrieved_contexts` để đảm bảo tính chính xác cho các chỉ số đo lường.
+[46] [req-0046] [prompt-v1] Q: What is Guardrails AI?...
+     Full Answer: Guardrails AI is an open-source framework designed to add safety and validation layers to LLM applications. It allows users to declaratively specify constraints on model outputs and automatically enforce them through configurable actions when validation fails.
+[47] [req-0047] [prompt-v1] Q: What is PII and why is it important to detect in LLM re...
+     Full Answer: PII (Personally Identifiable Information) refers to data that can identify an individual, such as names, email addresses, or social security numbers. It is critical to detect PII in LLM responses because exposing this sensitive information can violate privacy regulations like GDPR and HIPAA, risking unauthorized disclosure.
+[48] [req-0048] [prompt-v2] Q: What does structured output validation ensure?...
+     Full Answer: 1. **Tổng quan:** Structured output validation đảm bảo rằng các phản hồi từ LLM tuân thủ đúng các định dạng dữ liệu hoặc lược đồ (schema) mong đợi, chẳng hạn như JSON.
+
+2. **Các điểm chi tiết:** Quá trình này giúp phát hiện và khắc phục các lỗi cú pháp phổ biến mà LLM thường gặp phải, bao gồm việc sử dụng sai dấu ngoặc kép, thêm dấu phẩy thừa, hoặc bao gồm các thẻ markdown không cần thiết. Các trình xác thực (validators) sẽ áp dụng các chiến lược sửa lỗi trước khi chuyển dữ liệu đến các hệ thống hạ nguồn, hoặc trả về thông báo lỗi nếu việc sửa chữa không thành công.
+
+3. **Lưu ý kỹ thuật:** Mức độ tin cậy của quy trình này phụ thuộc vào khả năng của trình xác thực trong việc nhận diện và xử lý các cấu trúc sai lệch, nhằm đảm bảo tính toàn vẹn của dữ liệu trước khi đưa vào sử dụng thực tế.
+[49] [req-0049] [prompt-v2] Q: What is Constitutional AI?...
+     Full Answer: 1. **Tổng quan:** Constitutional AI là một phương pháp do Anthropic phát triển nhằm căn chỉnh các mô hình ngôn ngữ (LLM) với các nguyên tắc đạo đức thông qua cơ chế tự phê bình và tự điều chỉnh.
+
+2. **Các điểm chi tiết:** Kỹ thuật này vận hành thông qua hai giai đoạn chính: giai đoạn phê bình (critique), nơi mô hình tự nhận diện các vấn đề trong phản hồi của mình, và giai đoạn sửa đổi (revision), nơi mô hình viết lại nội dung để tuân thủ các nguyên tắc hiến pháp đã được thiết lập (ví dụ: không tạo nội dung độc hại).
+
+3. **Lưu ý kỹ thuật:** Điểm cốt lõi của phương pháp này là giảm thiểu sự phụ thuộc vào phản hồi trực tiếp từ con người đối với các nội dung độc hại, thay vào đó, mô hình tự đánh giá và cải thiện đầu ra dựa trên bộ nguyên tắc đạo đức được cung cấp sẵn.
+[50] [req-0050] [prompt-v2] Q: What are common AI safety concerns with LLMs?...
+     Full Answer: 1. **Tổng quan:** Các mối quan ngại phổ biến về an toàn AI đối với LLM bao gồm hiện tượng ảo tưởng (hallucination), nội dung độc hại (toxicity), định kiến (bias), rò rỉ thông tin nhận dạng cá nhân (PII leakage) và các cuộc tấn công bẻ khóa (jailbreaking).
+
+2. **Các điểm chi tiết:** Ảo tưởng là việc mô hình tạo ra thông tin nghe có vẻ hợp lý nhưng sai lệch về thực tế, trong khi nội dung độc hại liên quan đến việc tạo ra các nội dung xúc phạm hoặc gây hại. Định kiến xảy ra khi mô hình khuếch đại các thành kiến xã hội có sẵn trong dữ liệu huấn luyện, còn rò rỉ PII liên quan đến việc tiết lộ thông tin cá nhân nhạy cảm.
+
+3. **Lưu ý kỹ thuật:** Đây là những thách thức cốt lõi trong lĩnh vực an toàn AI đang phát triển nhanh chóng, đòi hỏi các cơ chế kiểm soát (guardrails) để giảm thiểu rủi ro khi triển khai các mô hình ngôn ngữ lớn.
+
+📊 Thống kê Routing: V1=19 câu (38.0%) | V2=31 câu (62.0%) | Tổng=50
