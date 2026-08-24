@@ -1,0 +1,28 @@
+
+=======================================================
+  Demo: PII Detection & Redaction
+=======================================================
+
+[Email] ✅ PASS (Clean)
+  Input:  Contact John at john.doe@example.com for details.
+  Output: Contact John at [EMAIL_REDACTED] for details.
+
+[Phone] ✅ PASS (Clean)
+  Input:  Call our support line at (555) 867-5309.
+  Output: Call our support line at [PHONE_REDACTED].
+
+[SSN] ✅ PASS (Clean)
+  Input:  Patient SSN is 123-45-6789 on file.
+  Output: Patient SSN is [SSN_REDACTED] on file.
+
+[Credit Card] ✅ PASS (Clean)
+  Input:  Payment made with card 4532 1234 5678 9010.
+  Output: Payment made with card [CREDIT_CARD_REDACTED].
+
+[Multi-PII] ✅ PASS (Clean)
+  Input:  Email: alice@example.com, Phone: 555-123-4567, Card: 5500-0000-0000-0004
+  Output: Email: [EMAIL_REDACTED], Phone: [PHONE_REDACTED], Card: [CREDIT_CARD_REDACTED]
+
+[Clean] ✅ PASS (Clean)
+  Input:  No sensitive information in this text. Everything is public knowledge.
+  Output: No sensitive information in this text. Everything is public knowledge.
