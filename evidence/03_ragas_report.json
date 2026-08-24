@@ -1,0 +1,20 @@
+{
+  "lab_day": "Day 22: LangSmith + Prompt Versioning",
+  "student_name": "Hồ Văn Thi",
+  "student_id": "2A202601907",
+  "qa_pairs_count": 50,
+  "prompt_v1_scores": {
+    "faithfulness": 0.8985720718474678,
+    "answer_relevancy": 0.9270780952380951,
+    "context_recall": 0.9780399999999999,
+    "context_precision": 0.9904
+  },
+  "prompt_v2_scores": {
+    "faithfulness": 0.9016197488586108,
+    "answer_relevancy": 0.8979504761904761,
+    "context_recall": 0.9780399999999999,
+    "context_precision": 0.9904
+  },
+  "target_faithfulness_met": true,
+  "bonus_faithfulness_met": true
+}
