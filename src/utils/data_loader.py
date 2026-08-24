@@ -50,20 +50,60 @@ def split_text(text: str, chunk_size: int = 500, chunk_overlap: int = 50) -> lis
     return splitter.split_text(text)
 
 
-def build_vectorstore(chunks: list, embeddings):
+def build_vectorstore(chunks: list, embeddings, cache_dir: str = None):
     """
-    Tạo FAISS vectorstore từ danh sách chunks và embeddings.
+    Tạo FAISS vectorstore từ danh sách chunks và embeddings (có hỗ trợ cache và batching).
 
     Args:
         chunks    : list[str] — danh sách text chunks đã chia
         embeddings: Embeddings instance (từ get_embeddings())
+        cache_dir : Thư mục lưu/load cache FAISS
 
     Returns:
         FAISS vectorstore đã được index và sẵn sàng dùng để retrieve
     """
+    import time
     from langchain_community.vectorstores import FAISS
 
+    if cache_dir is None:
+        cache_dir = Path(__file__).parent.parent.parent / "data" / "faiss_index"
+    else:
+        cache_dir = Path(cache_dir)
+
+    if cache_dir.exists() and (cache_dir / "index.faiss").exists():
+        print(f"📦 Đang tải FAISS vectorstore từ cache ({cache_dir}) ...")
+        try:
+            return FAISS.load_local(str(cache_dir), embeddings, allow_dangerous_deserialization=True)
+        except Exception as e:
+            print(f"⚠️  Không thể tải cache FAISS: {e}, đang tạo lại...")
+
     print(f"🔨 Đang tạo FAISS index từ {len(chunks)} chunks ...")
-    vectorstore = FAISS.from_texts(chunks, embeddings)
+    batch_size = 25
+    vectorstore = None
+    for i in range(0, len(chunks), batch_size):
+        batch = chunks[i:i + batch_size]
+        print(f"   Đang index batch {i // batch_size + 1}/{(len(chunks) + batch_size - 1) // batch_size} ({len(batch)} chunks)...")
+        for attempt in range(5):
+            try:
+                if vectorstore is None:
+                    vectorstore = FAISS.from_texts(batch, embeddings)
+                else:
+                    vectorstore.add_texts(batch)
+                break
+            except Exception as err:
+                if "429" in str(err) or "RESOURCE_EXHAUSTED" in str(err) or "quota" in str(err).lower():
+                    print(f"   ⏳ Gặp rate-limit quota, chờ 15s trước khi thử lại (attempt {attempt + 1}/5)...")
+                    time.sleep(15)
+                else:
+                    raise err
+        time.sleep(1.0)
+
+    try:
+        cache_dir.mkdir(parents=True, exist_ok=True)
+        vectorstore.save_local(str(cache_dir))
+        print(f"💾 Đã lưu cache FAISS vào {cache_dir}")
+    except Exception as e:
+        print(f"⚠️  Không thể lưu cache: {e}")
+
     print("✅ FAISS vectorstore đã sẵn sàng.")
     return vectorstore
